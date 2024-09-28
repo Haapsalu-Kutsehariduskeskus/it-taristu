@@ -1,8 +1,8 @@
-# IT infrastruktuuri alused
+# IT taristu alused
 
-![IT infrastruktuuri alused](/lectures/images/it_taristu.png)
+![IT taristu alused](/lectures/images/it_taristu.png)
 
-Kursus "IT infrastruktuuri alused" on mõeldud Haapsalu Kutsehariduskeskuse õpilastele, kes soovivad omandada põhiteadmised ja -oskused kaasaegse IT-infrastruktuuri loomiseks ja haldamiseks.
+Kursus "IT taristu alused" on mõeldud Haapsalu Kutsehariduskeskuse õpilastele, kes soovivad omandada põhiteadmised ja -oskused kaasaegse IT-infrastruktuuri loomiseks ja haldamiseks.
 
 ## Õpiväljundid
 
@@ -43,8 +43,8 @@ Kursuse läbinud õpilane:
 * Kursuse slaidid (lisatakse jooksvalt)
 * Praktiliste tööde juhendid
 * Soovituslik kirjandus:
-  - "IT-infrastruktuuri haldamise käsiraamat" (Autor, Aasta)
-  - "Pilvetehnoloogiate alused" (Autor, Aasta)
+  - "Modern IT Infrastructure Management: A Guide to Systems, Services, and Cloud Platforms" (Jez Humble, Gene Kim, 2021)
+  - "Cloud Computing: Concepts, Technology & Architecture" (Thomas Erl, Ricardo Puttini, Zaigham Mahmood, 2013)
 
 ## Praktiline lõpuprojekt
 
@@ -68,6 +68,9 @@ Vastuvõtuaeg: Neljapäeviti, 08:00 – 16:00 (või kokkuleppel)
 
 ## Lisamaterjalid
 
-* [Link kursuse veebilehele]
-* [Link õpikeskkonnale]
-* [Muud olulised lingid]
+* "Networking Essentials: A CompTIA Network+ N10-007 Textbook" (Jeffrey S. Beasley, Piyasat Nilkaew, 2018)
+* "CompTIA Server+ Certification All-in-One Exam Guide" (Daniel Lachance, 2021)
+* "DevOps: A Comprehensive Beginner's Guide to Learn DevOps Step by Step" (Ethan Thorpe, 2019)
+* "Mastering Windows Server 2019" (Jordan Krause, 2019)
+* "Linux Administration: A Beginner's Guide" (Wale Soyinka, 2020)
+
