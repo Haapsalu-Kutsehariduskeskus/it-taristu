@@ -1,5 +1,3 @@
----
-
 ## Sessioon 1: IT-infrastruktuuri ülevaade
 
 ### 1.1 Mis on IT-infrastruktuur?
