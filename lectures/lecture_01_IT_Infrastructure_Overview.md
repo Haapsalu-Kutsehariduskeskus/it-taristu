@@ -355,8 +355,9 @@ Source: [Alleo Tech](https://alleo.tech/2019/09/03/why-we-prefer-amazon-aws-to-m
 
 ## [Lab 1.2: Pilvekeskkonna seadistamine](./labs/lab_01_VM_Setup/lab_01.2_Cloud_Env_Setup.md)
 
-> ![AWS või Azure VM seadistamise protsess](/lectures/images/Cloud_Env_Setup.png)
-*AWS või Azure VM seadistamise protsess* 
+![AWS või Azure VM seadistamise protsess](/lectures/images/Cloud_Env_Setup.png)
+
+*AWS või Azure VM seadistamise protsess*
 
 ---
 
