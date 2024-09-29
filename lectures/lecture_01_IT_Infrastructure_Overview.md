@@ -348,6 +348,7 @@ Kokkuvõttes pakuvad kolm suurt pilveplatvormi eristuvaid eeliseid:
 - **Google Cloud Platform** on eelistatud ettevõtetele, kes keskenduvad andmeanalüütikale, masinõppele ja AI innovatsioonidele.
 
 > ![AWS, Azure ja Google Cloudi logod](https://alleo.tech/wp-content/uploads/2019/09/cropped-amazon-aws-microsoft-azure-google-cloud-1-768x431.png)
+
 *AWS, Azure ja Google Cloudi logod*  
 Source: [Alleo Tech](https://alleo.tech/2019/09/03/why-we-prefer-amazon-aws-to-microsoft-azure-and-google-cloud/)
 
