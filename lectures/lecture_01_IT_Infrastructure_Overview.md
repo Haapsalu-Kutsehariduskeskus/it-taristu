@@ -193,6 +193,7 @@ Kokkuvõttes pakuvad **hüperviisorid** võimalust käitada mitut virtuaalmasina
 # [Lab 1.1: Virtuaalmasina seadistamine](./labs/lab_01_VM_Setup/lab_01.1_Setting_Up_a_VM.md)
 
 > ![VirtualBoxi ja virtuaalmasina seadistamise protsessi ekraanipilt](/lectures/images/lab1.1.png)
+
 *VirtualBoxi ja virtuaalmasin*
 
 ---
