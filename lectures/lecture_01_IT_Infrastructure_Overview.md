@@ -77,7 +77,6 @@ Selline hübriidne lähenemine, mis ühendab kohapealse riistvara ja pilveteenus
 *Väikese kontori IT-seadistuse skeem serverite, võrgu ja pilve varundamisega*
 
 
-
 ---
 
 ## Sessioon 2: Virtualiseerimise kontseptsioonid
@@ -104,7 +103,6 @@ Virtualiseerimine on tehnoloogia, mis võimaldab käitada ühte füüsilist serv
 Kokkuvõttes võimaldab virtualiseerimine ettevõtetel teha rohkem vähemate füüsiliste ressurssidega, vähendab kulusid ja annab paindlikkust kasvu jaoks, hoides süsteemid isoleeritud ja turvalised.
 
 > ![Füüsiline server, mille peal töötab mitu virtuaalset masinat](/lectures/images/vm.png)
-
 *Füüsiline server VM'idega*
 
 ---
@@ -193,7 +191,6 @@ Kokkuvõttes pakuvad **hüperviisorid** võimalust käitada mitut virtuaalmasina
 # [Lab 1.1: Virtuaalmasina seadistamine](./labs/lab_01_VM_Setup/lab_01.1_Setting_Up_a_VM.md)
 
 > ![VirtualBoxi ja virtuaalmasina seadistamise protsessi ekraanipilt](/lectures/images/lab1.1.png)
-
 *VirtualBoxi ja virtuaalmasin*
 
 ---
@@ -209,6 +206,10 @@ Pilvandmetöötlus viitab IT-ressursside, nagu salvestusruumi, töötlemisvõims
 
 #### **Pilveteenuste mudelid**:
 Pilvandmetöötluse teenused jagunevad tavaliselt kolmeks peamiseks mudeliks: IaaS, PaaS ja SaaS. Iga mudel pakub erineval tasemel kontrolli ja abstraktsiooni, vastates erinevatele vajadustele ärikeskkondades ja arenduskeskkondades.
+
+> ![Pizza(https://www.optimizely.com/contentassets/dc07499e97874038afcea97b4c89b785/3-pizza-as-a-service.png)
+*Pizza teenusena" analoogia: On Prem, IaaS, PaaS ja SaaS*  
+Source: [Optimizely Blog](https://www.optimizely.com/insights/blog/pizza-as-a-service/)
 
 1. **IaaS (Infrastruktuur kui Teenus)**:  
    IaaS pakub virtualiseeritud arvutusressursse interneti kaudu, nagu virtuaalmasinad, salvestusruum ja võrguteenused. Kasutajatel on täielik kontroll operatsioonisüsteemide, rakenduste ja konfiguratsioonide üle, kuid nad ei pea haldama füüsilist riistvara. See mudel on väga paindlik ja seda kasutatakse sageli ettevõtetes virtuaalserverite, salvestuslahenduste või andmebaaside käitamiseks.
@@ -348,7 +349,6 @@ Kokkuvõttes pakuvad kolm suurt pilveplatvormi eristuvaid eeliseid:
 - **Google Cloud Platform** on eelistatud ettevõtetele, kes keskenduvad andmeanalüütikale, masinõppele ja AI innovatsioonidele.
 
 > ![AWS, Azure ja Google Cloudi logod](https://alleo.tech/wp-content/uploads/2019/09/cropped-amazon-aws-microsoft-azure-google-cloud-1-768x431.png)
-
 *AWS, Azure ja Google Cloudi logod*  
 Source: [Alleo Tech](https://alleo.tech/2019/09/03/why-we-prefer-amazon-aws-to-microsoft-azure-and-google-cloud/)
 
@@ -356,9 +356,8 @@ Source: [Alleo Tech](https://alleo.tech/2019/09/03/why-we-prefer-amazon-aws-to-m
 
 ## [Lab 1.2: Pilvekeskkonna seadistamine](./labs/lab_01_VM_Setup/lab_01.2_Cloud_Env_Setup.md)
 
-![AWS või Azure VM seadistamise protsess](/lectures/images/Cloud_Env_Setup.png)
-
-*AWS või Azure VM seadistamise protsess*
+> ![AWS või Azure VM seadistamise protsess](/lectures/images/Cloud_Env_Setup.png)
+*AWS või Azure VM seadistamise protsess* 
 
 ---
 
@@ -481,16 +480,15 @@ Serveri seadistamine on kriitiline osa serveri kasutuselevõtuks erinevates kesk
 Kokkuvõttes sobib **Windows Server** ettevõtetele, kes otsivad kasutusmugavust ja tugevat Microsofti integratsiooni, samal ajal kui **Linux Server** pakub ületamatut paindlikkust ja turvalisust ning on eelistatud valik veebimajutuse ja arenduskeskkondade jaoks.
 
 ![Windows Server ja Linux Server](https://www.milesweb.in/blog/wp-content/uploads/2022/03/linux-vs-windows-server-the-ultimate-comparison.png)
-
 *Windows Server ja Linux Server*  
 Source: [MilesWeb Blog](https://www.milesweb.in/blog/hosting/server/linux-server-vs-windows-server/)
+
 
 ---
 
 ## [Lab 1.3: Põhiline serveri seadistamine](./labs/lab_01_VM_Setup/lab_01.3_Basic_Server_Setup.md)
 
-![Linuxil veebiserveri seadistamine](/lectures/images/lab1.3.png)
-
+> ![Linuxil veebiserveri seadistamine](/lectures/images/lab1.3.png)
 *Põhiline serveri seadistamine*
 
 ---
