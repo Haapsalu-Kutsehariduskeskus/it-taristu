@@ -207,8 +207,8 @@ Pilvandmetöötlus viitab IT-ressursside, nagu salvestusruumi, töötlemisvõims
 #### **Pilveteenuste mudelid**:
 Pilvandmetöötluse teenused jagunevad tavaliselt kolmeks peamiseks mudeliks: IaaS, PaaS ja SaaS. Iga mudel pakub erineval tasemel kontrolli ja abstraktsiooni, vastates erinevatele vajadustele ärikeskkondades ja arenduskeskkondades.
 
-> ![Pizza(https://www.optimizely.com/contentassets/dc07499e97874038afcea97b4c89b785/3-pizza-as-a-service.png)
-*Pizza teenusena" analoogia: On Prem, IaaS, PaaS ja SaaS*  
+> ![Pizza as a Service analogy](https://www.optimizely.com/contentassets/dc07499e97874038afcea97b4c89b785/3-pizza-as-a-service.png)
+*"Pizza teenusena" analoogia: On Prem, IaaS, PaaS ja SaaS*  
 Source: [Optimizely Blog](https://www.optimizely.com/insights/blog/pizza-as-a-service/)
 
 1. **IaaS (Infrastruktuur kui Teenus)**:  
