@@ -73,4 +73,3 @@ Vastuvõtuaeg: Neljapäeviti, 08:00 – 16:00 (või kokkuleppel)
 * "DevOps: A Comprehensive Beginner's Guide to Learn DevOps Step by Step" (Ethan Thorpe, 2019)
 * "Mastering Windows Server 2019" (Jordan Krause, 2019)
 * "Linux Administration: A Beginner's Guide" (Wale Soyinka, 2020)
-
