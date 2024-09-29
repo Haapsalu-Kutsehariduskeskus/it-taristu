@@ -481,15 +481,16 @@ Serveri seadistamine on kriitiline osa serveri kasutuselevõtuks erinevates kesk
 Kokkuvõttes sobib **Windows Server** ettevõtetele, kes otsivad kasutusmugavust ja tugevat Microsofti integratsiooni, samal ajal kui **Linux Server** pakub ületamatut paindlikkust ja turvalisust ning on eelistatud valik veebimajutuse ja arenduskeskkondade jaoks.
 
 ![Windows Server ja Linux Server](https://www.milesweb.in/blog/wp-content/uploads/2022/03/linux-vs-windows-server-the-ultimate-comparison.png)
+
 *Windows Server ja Linux Server*  
 Source: [MilesWeb Blog](https://www.milesweb.in/blog/hosting/server/linux-server-vs-windows-server/)
-
 
 ---
 
 ## [Lab 1.3: Põhiline serveri seadistamine](./labs/lab_01_VM_Setup/lab_01.3_Basic_Server_Setup.md)
 
-> ![Linuxil veebiserveri seadistamine](/lectures/images/lab1.3.png)
+![Linuxil veebiserveri seadistamine](/lectures/images/lab1.3.png)
+
 *Põhiline serveri seadistamine*
 
 ---
