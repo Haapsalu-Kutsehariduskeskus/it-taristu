@@ -104,6 +104,7 @@ Virtualiseerimine on tehnoloogia, mis võimaldab käitada ühte füüsilist serv
 Kokkuvõttes võimaldab virtualiseerimine ettevõtetel teha rohkem vähemate füüsiliste ressurssidega, vähendab kulusid ja annab paindlikkust kasvu jaoks, hoides süsteemid isoleeritud ja turvalised.
 
 > ![Füüsiline server, mille peal töötab mitu virtuaalset masinat](/lectures/images/vm.png)
+
 *Füüsiline server VM'idega*
 
 ---
