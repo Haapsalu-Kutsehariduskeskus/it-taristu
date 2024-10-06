@@ -1,4 +1,4 @@
-# IT Infrastruktuuri Kursuse Täielik Õppekava
+# IT Infrastruktuuri Kursuse Õppekava
 
 ## Kursuse Informatsioon
 - **Kursuse Pealkiri**: IT Infrastruktuuri Alused
@@ -29,7 +29,7 @@ See kursus pakub põhjaliku sissejuhatuse IT-infrastruktuuri, keskendudes virtua
   - Serveri riistvara komponendid
 - **Laborid**: 
   - Lab 1: Virtuaalmasina seadistamine VirtualBox'is
-  - Lab 2: AWS EC2 instantsi loomine ja konfigureerimine
+  - Lab 2: Azure instantsi loomine ja konfigureerimine
   - Lab 3: Põhiline veebiserveri seadistamine
 
 ### Nädal 8 (14.10.2024) - 4 Tundi
