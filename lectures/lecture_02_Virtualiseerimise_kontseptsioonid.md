@@ -76,7 +76,8 @@ Virtualiseerimist võimaldavad tarkvarad jagunevad peamiselt hüperviisoriteks j
 
 ---
 
-# [Lab 1.1: Virtuaalmasina seadistamine](../labs/lab_01_VM_Setup/lab_01.1_Setting_Up_a_VM.md)
+## [Lab 1: Virtuaalmasina seadistamine](../labs/lab_01_VM_Setup/lab_01_Setting_Up_a_VM.md)
+*See labor keskendub virtuaalmasina seadistamisele kasutades VirtualBoxi.*
 
 ![VirtualBoxi ja virtuaalmasina seadistamise protsess](./images/lab1.1.png)
 *VirtualBoxi ja virtuaalmasina seadistamise protsess*
