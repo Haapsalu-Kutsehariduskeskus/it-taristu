@@ -1,8 +1,8 @@
-# Lab 3: Põhiline veebiserveri seadistamine Azure'is
+# Lab 3: Veebiserveri seadistamine Azure'is
 
 ## Eesmärk
 
-Selles laboris õpite seadistama põhilise veebiserveri Azure'i platvormil. Te omandatee praktilisi kogemusi serverite põhikomponentide ja teenuste haldamisest pilves. Labor hõlmab veebiserveri installimist, portide avamist ja lihtsa HTML-lehe lisamist.
+Selles laboris õpite seadistama veebiserveri Azure'i platvormil. Te omandatee praktilisi kogemusi serverite põhikomponentide ja teenuste haldamisest pilves. Labor hõlmab veebiserveri installimist, portide avamist ja lihtsa HTML-lehe lisamist.
 
 ## Eeltingimused
 

@@ -100,7 +100,7 @@ Tagid aitavad ressursse organiseerida ja hallata. Lisa järgmised tagid:
 
 ## Kokkuvõte
 
-Oled nüüd loonud ja konfigureerinud virtuaalmasina Azure's, arvestades Eesti konteksti. See on esimene samm pilvetehnoloogiate praktilises õppimises.
+Oled nüüd loonud ja konfigureerinud virtuaalmasina Azure's
 
 ## Järgmised sammud
 
