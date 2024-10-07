@@ -1,65 +1,107 @@
-# Lab 1.2: Pilvekeskkonna seadistamine
+# Lab 2: Pilvekeskkonna seadistamine
 
-**Eesmärk**:  
-Selles laboris õpid looma ja uurima virtuaalmasinat Microsoft Azure's. Samuti seadistad põhiveebiserveri **Apache**, et mõista, kuidas pilveinfrastruktuur töötab ja kuidas veebi teenuseid rakendada.
+## Eesmärk
 
----
+Selles laboris õpid looma ja uurima virtuaalmasinat Microsoft Azure's, keskendudes Eesti kontekstile. See annab sulle praktilise kogemuse pilvepõhise infrastruktuuri seadistamisel.
 
-**Tööriistad**:  
+## Tööriistad
+
 - **GitHub Education** konto, millel on **Azure for Students** hüved
 
----
+## Juhised
 
-### Juhised
+### 1. Registreeri Azure kontole läbi GitHub Education
 
-1. **Registreeri Azure kontole läbi GitHub Education**:  
-   - Kui sul ei ole veel Azure kontot, mine [GitHub Education hüvede lehele](https://education.github.com/pack) ja registreeru **Azure for Students** pakkumisele.
-   - See annab sulle ligipääsu Azure teenustele ilma krediitkaardita, pakkudes tasuta teenuseid, mis on mõeldud spetsiaalselt tudengitele.
+- Kui sul ei ole veel Azure kontot, mine [GitHub Education hüvede lehele](https://education.github.com/pack) ja registreeru **Azure for Students** pakkumisele.
+- See annab sulle ligipääsu Azure teenustele ilma krediitkaardita, pakkudes tasuta teenuseid, mis on mõeldud spetsiaalselt tudengitele.
 
-2. **Järgi ametlikku Azure virtuaalmasina seadistamise juhendit**:  
-   - Alustamiseks järgi seda detailset [Microsoft juhendit](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu), mis õpetab, kuidas luua virtuaalmasinat kasutades **Ubuntu** Azure portaalis.
-   - See juhend aitab sul igat sammu läbi teha ja kindlustab, et seadistad oma virtuaalmasina korrektselt.
+> ![Microsoft Azure pack](/lectures/images/azure_pack.png)
+> *https://education.github.com/pack*
 
-3. **Virtuaalmasina loomine**:  
-   - Pärast juhendi järgimist vali kindlasti tasuta **B1s** suurus.
-   - Loo **SSH key pair**, et kindlustada turvaline ligipääs oma virtuaalmasinale.
-   - Vaata üle ja loo virtuaalmasin ning oota, kuni selle seadistamine lõpeb.
+### 2. Azure'i portaali sisselogimine ja ressursi loomine
 
-4. **Ühendu oma virtuaalmasinaga**:  
-   - Kui sinu virtuaalmasin on käivitatud, pead sellega ühenduse looma kasutades **SSH**-i.
-   - Azure's leia oma virtuaalmasina **Public IP**. Kasuta oma key pair’i, et ühendada SSH kaudu:
-     ```bash
-     ssh -i /path/to/your-key.pem azureuser@your-vm-public-ip
-     ```
+1. Logi sisse [Azure'i portaali](https://portal.azure.com/).
+2. Klõpsa "Create a resource" nupul.
+3. Vali "Compute" kategooria alt "Virtual Machine".
 
-5. **Apache veebiserveri paigaldamine**:
+### 3. Virtuaalmasina konfigureerimine
 
-   **Mis on Apache?**  
-   **Apache** on populaarne, avatud lähtekoodiga veebiserveri tarkvara, mis võimaldab veebisaite teenindada üle interneti. See töötleb päringuid ja edastab veebilehti kasutajatele. Selles laboris installid ja käivitad Apache, et teenindada lihtsat veebilehte.
+Kasutame näitena õpilast nimega Maria. Järgi neid samme:
 
-   - Pärast virtuaalmasinaga ühenduse loomist paigalda **Apache**:
-     ```bash
-     sudo apt update
-     sudo apt install apache2
-     ```
+1. **Subscription**: Vali "Azure for Students" tellimus.
+2. **Resource group**: Loo uus, nimeta see "RG-Maria-Lab" (asenda "Maria" oma nimega).
+3. **Virtual machine name**: Sisesta "VM-Maria-Web" (asenda jälle "Maria" oma nimega).
+4. **Region**: Vali "(Europe) North Europe". See on Eestile lähim Azure'i regioon.
+5. **Availability options**: Jäta vaikeväärtusele (No infrastructure redundancy required).
+6. **Security type**: Vali "Standard".
+7. **Image**: Vali Ubuntu Server 20.04 LTS või uusim LTS versioon.
+8. **Size**: Vali tasuta "B1s" suurus (1 vCPU, 1 GiB memory).
 
-   - Pärast veebiserveri paigaldamist käivita teenus:
-     ```bash
-     sudo systemctl start apache2
-     ```
+### 4. Administraatori konto seadistamine
 
-6. **Kontrolli seadistust**:
+1. **Authentication type**: Vali "SSH public key".
+2. **Username**: Sisesta oma eelistatud kasutajanimi, näiteks "mariaadmin".
+3. **SSH public key source**: Vali "Generate new key pair".
+4. **Key pair name**: Sisesta "Maria-VM-key" (asenda "Maria" oma nimega).
 
-   **Kuidas kontrollida, kas Apache töötab**:  
-   - Sa saad kontrollida, kas Apache töötab, minnes oma virtuaalmasina **Public IP**-le veebibrauseris. Kui Apache töötab õigesti, näed vaikimisi Apache tervituslehte, kus on kirjas midagi sarnast: "Apache2 Ubuntu Default Page."
-     - **Public IP** leidmiseks mine Azure portaalis oma virtuaalmasina juurde ja otsi välja **Public IP** väli.
-     - Ava oma brauser ja sisesta see IP, näiteks:
-       ```
-       http://your-vm-public-ip
-       ```
+### 5. Sissetulevad pordid
 
-   Kui näed vaikimisi lehte, siis töötab sinu **Apache server** edukalt.
+- Vali "Allow selected ports" ja märgi "SSH (22)".
 
----
+### 6. Diskid
 
-Selle labori lõpuks oled edukalt loonud virtuaalmasina Azure's, paigaldanud **Apache** ja kontrollinud, kas veebiserver töötab. See annab sulle praktilise kogemuse lihtsa pilvepõhise veebiteenuse seadistamisel.
+- Jäta vaikesätted.
+
+### 7. Võrgustik
+
+- Virtuaalvõrk ja alamvõrk luuakse automaatselt. Jäta vaikesätted.
+
+### 8. Haldus
+
+- **Azure Security Center**: Lülita "Basic" peale, et säästa ressursse.
+- **Boot diagnostics**: Jäta lubatud.
+- **Auto-shutdown**: Võid seadistada VM automaatselt välja lülituma öösel, et säästa ressursse.
+
+### 9. Täpsemad sätted
+
+- Jäta vaikesätted.
+
+### 10. Tagid
+
+Tagid aitavad ressursse organiseerida ja hallata. Lisa järgmised tagid:
+- Key: "Project", Value: "WebLab"
+- Key: "Owner", Value: "Maria" (asenda oma nimega)
+- Key: "Environment", Value: "Development"
+
+### 11. Ülevaatus ja loomine
+
+1. Vaata üle kõik seaded.
+2. Klõpsa "Create" nupul.
+3. Kui küsitakse SSH võtmepaari allalaadimist, laadi see alla ja hoia turvalises kohas.
+
+### 12. Ühenduse loomine virtuaalmasinaga
+
+1. Kui VM on loodud, leia selle avalik IP-aadress Azure'i portaalist.
+2. Kasuta SSH-d, et ühenduda:
+   ```bash
+   ssh -i /path/to/your-key.pem mariaadmin@your-vm-public-ip
+   ```
+   Asenda "/path/to/your-key.pem" oma allalaaditud võtme asukohaga ja "mariaadmin" oma valitud kasutajanimega.
+
+### 13. Tutvu virtuaalmasina keskkonnaga
+
+- Proovi käske nagu `ls`, `pwd`, `whoami`.
+- Uuri süsteemi infot käsuga `uname -a`.
+
+### 14. Virtuaalmasina peatamine
+
+- Logi välja käsuga `exit`.
+- Azure'i portaalis vali oma VM ja klõpsa "Stop" nupul.
+
+## Kokkuvõte
+
+Oled nüüd loonud ja konfigureerinud virtuaalmasina Azure's, arvestades Eesti konteksti. See on esimene samm pilvetehnoloogiate praktilises õppimises.
+
+## Järgmised sammud
+
+Järgmises laboris õpime, kuidas seadistada veebiserver oma virtuaalmasinas ja hostida lihtsat veebilehte.
