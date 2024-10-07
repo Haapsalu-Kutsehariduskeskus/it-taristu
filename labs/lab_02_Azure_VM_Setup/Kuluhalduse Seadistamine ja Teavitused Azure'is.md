@@ -1,9 +1,3 @@
-
----
-
-### **Lab *: Kuluhalduse Seadistamine ja Teavitused Azure'is**
-
-```markdown
 # Lab 2: Kuluhalduse Seadistamine ja Teavitused Azure'is
 
 ## Eesmärk
@@ -56,4 +50,4 @@ Selles laboris õpid, kuidas seadistada **Azure Cost Management + Billing**, et 
 #### 3.2 E-kirjade Saamine (kui unustad masina välja lülitada)
 
 1. Kui masin töötab pikemat aega, saad määratud aja möödumisel automaatselt e-kirja teavituse.
-2. Seda reeglit saad kohandada ka teiste ressursside jaoks, näiteks and
+2. Seda reeglit saad kohandada ka teiste ressursside jaoks, näiteks andmebaaside või teiste teenuste puhul.
