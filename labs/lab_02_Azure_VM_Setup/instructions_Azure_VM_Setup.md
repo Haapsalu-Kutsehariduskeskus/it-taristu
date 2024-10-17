@@ -1,5 +1,9 @@
 # Lab 2: Pilvekeskkonna seadistamine
 
+🚨 **TEE KULUHALDUSE SEADISTAMISE ENNEM ÄRA!!!** 🚨
+⚠️ **KUI SA RAISKAD FREE TRIAL ÄRA !!! SA EI SAA LÕPETADA SEDA KURSUST!** ⚠️
+
+
 ## Eesmärk
 
 Selles laboris õpid looma ja uurima virtuaalmasinat Microsoft Azure's, keskendudes Eesti kontekstile. See annab sulle praktilise kogemuse pilvepõhise infrastruktuuri seadistamisel.
@@ -20,9 +24,15 @@ Selles laboris õpid looma ja uurima virtuaalmasinat Microsoft Azure's, keskendu
 
 ### 2. Azure'i portaali sisselogimine ja ressursi loomine
 
-1. Logi sisse [Azure'i portaali] läbi Githubi Education saidi.
-2. Klõpsa "Create a resource" nupul.
-3. Vali "Compute" kategooria alt "Virtual Machine".
+1. Kui su GitHub Student Developer Pack on heaks kiidetud, mine tagasi GitHub Student Developer Pack'i lehele, kerides alla, kuni leiad "Microsoft Azure" sektsiooni. Klõpsa **Get Microsoft Azure** nupul. See suunab sind **Azure for Students** pakkumise lehele.
+Logi sisse või loo Azure'i konto:
+  -  Kui sul juba on Microsofti konto, logi sisse. Kui ei, siis loo uus konto.
+  -  Pärast sisselogimist viiakse sind Azure for Students lehele, kus saad aktiveerida oma $100 tasuta krediidi, ilma et oleks vaja krediitkaarti.
+Aktiveeri oma tellimus:
+   - Järgi juhiseid, et tõendada oma õpilasstaatust. See võib hõlmata ülikooli e-posti aadressi.
+   - Pärast edukat kontrollimist aktiveeritakse sinu tasuta Azure'i tellimus koos $100 krediidiga, mis kehtib 12 kuud, ja saad ligipääsu enam kui 25 tasuta teenusele.
+3. Klõpsa "Create a resource" nupul.
+4. Vali "Compute" kategooria alt "Virtual Machine".
 
 ### 3. Virtuaalmasina konfigureerimine
 
@@ -96,7 +106,7 @@ Tagid aitavad ressursse organiseerida ja hallata. Lisa järgmised tagid:
 ### 14. Virtuaalmasina peatamine
 
 - Logi välja käsuga `exit`.
-- Azure'i portaalis vali oma VM ja klõpsa "Stop" nupul.
+- Azure'i portaalis vali oma VM ja klõpsa "Stop" nupul.  🚨 **Oluline:** **Peata masin, et mitte kulu raisata!**
 
 ## Kokkuvõte
 
