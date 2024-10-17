@@ -20,7 +20,7 @@ Selles laboris õpid looma ja uurima virtuaalmasinat Microsoft Azure's, keskendu
 
 ### 2. Azure'i portaali sisselogimine ja ressursi loomine
 
-1. Logi sisse [Azure'i portaali](https://portal.azure.com/) läbi Githubi Education saidi.
+1. Logi sisse [Azure'i portaali] läbi Githubi Education saidi.
 2. Klõpsa "Create a resource" nupul.
 3. Vali "Compute" kategooria alt "Virtual Machine".
 
