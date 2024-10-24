@@ -9,10 +9,6 @@ Võrgud on tänapäeva digitaalse maailma selgroog. Kujutage ette, et kogu inter
 
 ## 🏙️ Võrgutüübid: Detailne Ülevaade
 
-# 🌐 Võrguinfrastruktuur, DHCP ja DNS
-
-## 🏙️ Võrgutüübid: Digitaalse Infrastruktuuri Alused
-
 ```mermaid
 graph TB
     subgraph WAN[Wide Area Network]
