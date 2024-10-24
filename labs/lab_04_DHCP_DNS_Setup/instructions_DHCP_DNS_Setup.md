@@ -294,8 +294,6 @@ Pärast seda laborit oskad:
 - Mõistad DHCP ja DNS põhitööd
 - Tead, kuidas ressursse peatada ja kustutada
 
-[eelmine Azure sisu jääb samaks, siis lisame:]
-
 ## B. Cisco Packet Tracer Laboriharjutused
 *Sobib algajatele - Ajakulu: 1-2 tundi*
 
