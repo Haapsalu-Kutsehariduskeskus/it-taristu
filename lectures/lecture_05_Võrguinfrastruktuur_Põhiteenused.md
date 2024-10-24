@@ -1,5 +1,4 @@
 # Võrguinfrastruktuur, DHCP ja DNS
-## Study.book - Lab 4
 
 ## 1. Õppematerjali eesmärgid 🎯
 
