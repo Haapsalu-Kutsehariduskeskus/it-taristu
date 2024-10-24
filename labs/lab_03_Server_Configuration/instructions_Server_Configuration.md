@@ -1,149 +1,296 @@
-# Lab 3: Veebiserveri seadistamine Azure'is
+# Labor 3: Veebiserveri seadistamine Azure'is
 
-## Eesmärk
+## 1. Sissejuhatus: Mis on veebiserver?
 
-Selles laboris õpite seadistama veebiserveri Azure'i platvormil. Te omandatee praktilisi kogemusi serverite põhikomponentide ja teenuste haldamisest pilves. Labor hõlmab veebiserveri installimist, portide avamist ja lihtsa HTML-lehe lisamist.
+### 1.1 Veebiserveri põhimõte lihtsas keeles
+Kujutage ette, et veebiserver on nagu digitaalne ettekandja:
+- **Külastaja (brauser)** küsib midagi (näiteks veebilehte)
+- **Veebiserver** toob küsitud info (HTML-faili) külastajale
+- **Veebileht** jõuab külastaja brauserisse
 
-## Eeltingimused
+### 1.2 Miks me Apache veebiserveri paneme?
+- Apache on nagu "programm, mis serveerib veebilehti"
+- See on tasuta ja väga populaarne
+- Töötab hästi Windowsi ja Linuxi arvutites
+- Lihtne seadistada ja kasutada
 
-- Azure'i konto (soovitavalt Azure for Students)
-- Eelmistes laboritest loodud virtuaalmasin
-- Baasteadmised käsureast ja HTML-ist
+## 2. Kuidas oma serverisse siseneda?
 
-## Ülesanded
+### 2.1 Sisselogimise võimalused Windowsi VM-ile
+Sul on kolm võimalust oma serverisse siseneda:
 
-### 1. Azure'i konto ja virtuaalmasina ülevaatus
+1. **Läbi Remote Desktop (RDP) - Traditsiooniline meetod**
+   - Plussid:
+     * Tuttav Windowsi kasutajatele
+     * Täisfunktsionaalne töölaud
+     * Kiire töötamine
+   - Miinused:
+     * Vajab programmi installimist
+     * Võib olla blokeeritud mõnes võrgus
+   
+   Kuidas kasutada:
+   1. Ava Start menüü
+   2. Kirjuta "Remote Desktop Connection"
+   3. Sisesta oma VM-i IP-aadress
+   4. Sisesta kasutajanimi ja parool
 
-1. Avage veebibrauser ja minge [Azure'i portaali](https://portal.azure.com/).
-2. Logige sisse oma Azure'i kontoga.
-3. Otsige üles oma eelmises labis loodud virtuaalmasin.
-   - Kui te ei leia oma VM-i, kontrollige, kas olete õiges tellimuses (subscription) ja ressursigrupis.
+2. **Läbi Azure portaali "Connect" nupu - Lihtne meetod**
+   - Plussid:
+     * Ei vaja midagi installida
+     * Töötab igas arvutis
+     * Väga lihtne kasutada
+   - Miinused:
+     * Vajab head internetiühendust
+     * Võib olla aeglasem kui RDP
+   
+   Kuidas kasutada:
+   1. Mine portal.azure.com
+   2. Leia oma VM
+   3. Vajuta "Connect"
+   4. Vali "Native RDP"
+   5. Laadi alla RDP fail ja ava see
 
-### 2. Ühenduse loomine virtuaalmasinaga
+3. **Läbi brauseri (Bastion) - Modernne meetod**
+   - Plussid:
+     * Töötab otse brauseris
+     * Ei vaja avalikku IP-d
+     * Väga turvaline
+   - Miinused:
+     * Võib olla aeglasem
+     * Vajab Bastioni seadistamist
+   
+   Kuidas kasutada:
+   1. Mine Azure portaali
+   2. Vali oma VM
+   3. Vajuta "Connect"
+   4. Vali "Bastion"
+   5. Sisesta kasutajanimi/parool
 
-#### 2.1 SSH ühenduse loomine (Linux VM jaoks)
+### 2.2 Vali endale sobiv meetod
+- Kui oled algaja: Kasuta Azure portaali "Connect" nuppu
+- Kui tahad kiiremat ühendust: Kasuta Remote Desktop
+- Kui oled koolis/tööl (kus on piirangud): Kasuta Bastioni
 
-1. Leidke oma VM-i avalik IP-aadress Azure'i portaalist.
-2. Avage terminal (Linux/macOS) või PowerShell (Windows).
-3. Sisestage järgmine käsk, asendades `<your-username>` ja `<your-vm-ip>` oma andmetega:
-   ```
-   ssh <your-username>@<your-vm-ip>
-   ```
-4. Kui küsitakse, sisestage oma SSH-võtme parool (kui see on seadistatud).
+## 3. Veebiserveri seadistamine
 
-#### 2.2 RDP ühenduse loomine (Windows VM jaoks)
+### 3.1 Apache veebiserveri failisüsteem
+Kui Apache on installitud, tekivad järgmised olulised kaustad:
 
-RDP (Remote Desktop Protocol) on Microsofti loodud protokoll, mis võimaldab kasutajatel ühenduda teise arvutiga üle võrgu graafilise liidesega.
+1. **/var/www/html/** - SINU VEEBILEHTEDE KAUST
+   - Siia käivad kõik sinu veebilehed
+   - index.html on pealeht
+   - Pildid ja muud failid võivad olla alamkaustades
 
-1. Azure'i portaalis valige oma VM.
-2. Klõpsake "Connect" ja valige "RDP".
-3. Laadige alla RDP-fail.
-4. Avage allalaaditud RDP-fail.
-5. Kui küsitakse, sisestage oma VM-i kasutajanimi ja parool.
+2. **/etc/apache2/** - SEADISTUSTE KAUST
+   - Siin on Apache seaded
+   - Tavaliselt ei pea siin midagi muutma
 
-### 3. Apache veebiserveri installimine
+3. **/var/log/apache2/** - LOGIDE KAUST
+   - Siia kirjutatakse kõik, mis serveris toimub
+   - Kasulik, kui midagi ei tööta
 
-Apache on populaarne avatud lähtekoodiga veebiserver, mida kasutatakse laialdaselt veebilehtede hostimiseks.
+### 3.2 Kuidas veebileht töötab?
+1. Keegi kirjutab brauserisse sinu serveri IP-aadressi
+2. Apache saab päringu
+3. Apache otsib /var/www/html/ kaustast index.html faili
+4. Apache saadab selle faili brauserisse
+5. Brauser näitab lehte külastajale
 
-1. Pärast VM-iga ühenduse loomist, sisestage järgmised käsud:
+## 4. Apache installimine
+
+### 4.1 Miks me kindlaid käske kasutame?
+```bash
+sudo apt update
+```
+- `sudo` - "super-user do" - annab õigused programmi installida
+- `apt` - programm, mis oskab teisi programme installida
+- `update` - uuenda nimekirja saadaval olevatest programmidest
+
+```bash
+sudo apt install apache2
+```
+- `install` - installi uus programm
+- `apache2` - veebiserveri programmi nimi
+
+### 4.2 Pordid ja tulemüür
+- **Port 80** - HTTP jaoks (tavalised veebilehed)
+  * Nagu ukseava, kust veebilehed läbi käivad
+  * Peab olema avatud, et teised saaksid sinu lehte näha
+
+- **Port 443** - HTTPS jaoks (turvalised veebilehed)
+  * Sama mis port 80, aga krüpteeritud
+  * Vajalik, kui tahad kunagi turvalist ühendust
+## 5. Oma veebilehe loomine
+
+### 5.1 HTML - Mis see on ja kuidas töötab?
+HTML on nagu ehitusklotsid sinu veebilehe jaoks:
+- See on keel, mida brauser mõistab
+- Iga `<tag>` ütleb brauserile, mida näidata
+- Näiteks:
+  * `<h1>` - suur pealkiri
+  * `<p>` - tekstilõik
+  * `<img>` - pilt
+
+### 5.2 Veebilehe struktuur selgitustega
+```html
+<html>
+    <head>
+        <!-- See osa pole nähtav, aga väga oluline -->
+        <meta charset="UTF-8">  <!-- Et täpitähed töötaks -->
+        <title>Minu leht</title>  <!-- Brauseri sakil nähtav nimi -->
+        
+        <style>
+            /* See osa määrab, kuidas leht välja näeb */
+            body {
+                font-family: Arial;  /* Teksti font */
+                padding: 20px;       /* Vahe lehe äärtest */
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- See osa on nähtav külastajatele -->
+        <h1>Pealkiri</h1>
+        <p>Tavaline tekst</p>
+    </body>
+</html>
+```
+
+### 5.3 Kuidas veebilehte muuta?
+
+1. **Leia õige fail**
    ```bash
-   sudo apt update
-   sudo apt install apache2 -y
+   cd /var/www/html    # Mine veebilehe kausta
+   ls                  # Vaata, mis failid seal on
    ```
-2. Pärast installimist käivitage Apache ja seadistage see automaatselt käivituma süsteemi käivitamisel:
+
+2. **Muuda faili**
    ```bash
-   sudo systemctl start apache2
-   sudo systemctl enable apache2
+   sudo nano index.html   # Ava teksti redaktor
    ```
-3. Kontrollige, kas Apache töötab:
-   ```bash
-   sudo systemctl status apache2
-   ```
+   
+   Klaviatuuri käsud nano's:
+   - `Ctrl + X` - Välju
+   - `Y` - Salvesta
+   - `Enter` - Kinnita
 
-### 4. Portide avamine veebiserveri jaoks
+### 5.4 Proovi ise!
+Kopeeri see kood ja muuda [SINU NIMI] enda omaks:
 
-**NB! Turvalisus on oluline:** Avage ainult vajalikud pordid ja piirake ligipääsu võimalusel kindlate IP-aadressidega.
+```html
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Minu Azure leht</title>
+    <style>
+        /* Siin on lehe disain - võid värve muuta! */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;  /* Helelilla taust */
+        }
+        .konteiner {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0066cc;  /* Sinine pealkiri */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="konteiner">
+        <h1>Tere tulemast!</h1>
+        
+        <!-- Sinu info kast -->
+        <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px;">
+            <h2>Minu info:</h2>
+            <p><strong>Nimi:</strong> [SINU NIMI]</p>
+            <p><strong>Kuupäev:</strong> [TÄNANE KUUPÄEV]</p>
+            <p><strong>Kursus:</strong> [KURSUSE NIMI]</p>
+        </div>
 
-1. Minge Azure'i portaalis oma VM-i lehele.
-2. Valige vasakmenüüst "Networking".
-3. Klõpsake "Add inbound port rule".
-4. Lisage järgmised reeglid:
-   - HTTP jaoks:
-     - Protokoll: TCP
-     - Pordi vahemik: 80
-     - Tegevus: Allow
-     - Prioriteet: 1000
-     - Nimi: Allow_HTTP
-   - HTTPS jaoks:
-     - Protokoll: TCP
-     - Pordi vahemik: 443
-     - Tegevus: Allow
-     - Prioriteet: 1001
-     - Nimi: Allow_HTTPS
+        <!-- Serveri info kast -->
+        <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px;">
+            <h2>Minu serveri info:</h2>
+            <ul>
+                <li>Operatsioonisüsteem: Windows Server</li>
+                <li>Veebiserver: Apache2</li>
+                <li>Platvorm: Microsoft Azure</li>
+                <li>IP-aadress: [SINU-VM-IP]</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+```
 
-### 5. Veebiserveri testimine
+## 6. Mida teha, kui midagi ei tööta?
 
-1. Kopeerige oma VM-i avalik IP-aadress Azure'i portaalist.
-2. Avage uus veebibrauseri aken ja sisestage aadressiribale: `http://<your-vm-ip>`
-3. Te peaksite nägema Apache2 vaikimisi veebilehte.
+### 6.1 Levinud probleemid ja lahendused
 
-### 6. Veebiserveri põhifunktsioonide konfigureerimine
+1. **"Lehte ei saa avada"**
+   - Kontrolli:
+     * Kas VM töötab? (Azure portaalis peaks olema "Running")
+     * Kas IP-aadress on õige?
+     * Kas port 80 on avatud? (Vaata Azure turvalisuse seadeid)
 
-1. Ühenduge uuesti oma VM-iga SSH kaudu.
-2. Avage vaikimisi HTML-fail:
-   ```bash
-   sudo nano /var/www/html/index.html
-   ```
-3. Kustutage olemasolev sisu ja asendage see järgmise HTML-koodiga (asendage `[SINU TÄISNIMI]` ja `[TÄNANE KUUPÄEV]` oma andmetega):
-   ```html
-   <html>
-   <head>
-     <title>Minu Azure Veebileht</title>
-     <style>
-       body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-       h1 { color: #0066cc; }
-     </style>
-   </head>
-   <body>
-     <h1>Tere tulemast minu Azure veebiserverisse!</h1>
-     <p>See leht on hostitud Azure virtuaalmasinas.</p>
-     <p><strong>Loodud:</strong> [SINU TÄISNIMI]</p>
-     <p><strong>Kuupäev:</strong> [TÄNANE KUUPÄEV]</p>
-   </body>
-   </html>
-   ```
-4. Salvestage fail vajutades `Ctrl + X`, seejärel `Y` ja `Enter`.
-5. Värskendage veebilehte oma brauseris, et näha muudatusi.
+2. **"Permission denied"**
+   - Lahendus:
+     ```bash
+     sudo chmod 755 /var/www/html/index.html
+     ```
+   - See käsk annab õigused faili muuta
 
-### 7. Tõrkeotsing
+3. **"Täpitähed ei tööta"**
+   - Kontrolli, kas failis on rida:
+     ```html
+     <meta charset="UTF-8">
+     ```
 
-Kui teil tekib probleeme, proovige järgmist:
+### 6.2 Kuidas kontrollida, kas Apache töötab?
+```bash
+sudo systemctl status apache2
+```
+- Kui näed "active (running)" - kõik on korras
+- Kui näed "failed" - midagi on valesti
 
-1. Kontrollige Apache staatust:
-   ```bash
-   sudo systemctl status apache2
-   ```
-2. Vaadake üle Apache logifailid:
-   ```bash
-   sudo tail -n 50 /var/log/apache2/error.log
-   ```
-3. Veenduge, et pordid on avatud Azure'i tulemüüris (vt punkt 4).
-4. Kontrollige oma võrguühendust.
+## 7. Labori lõpetamine
 
-### 8. Azure'i ressursi lõpetamine
+### 7.1 Kontrollnimekiri
+- [ ] VM töötab
+- [ ] Apache on installitud
+- [ ] Port 80 on avatud
+- [ ] Veebileht on muudetud
+- [ ] Leht avaneb brauseris
 
-Kui olete lõpetanud:
+### 7.2 Mida õppisime?
+1. Kuidas serverisse siseneda (RDP, Bastion)
+2. Mis on veebiserver ja kuidas see töötab
+3. Kuidas luua ja muuta veebilehte
+4. Kuidas lahendada levinud probleeme
 
-1. Minge tagasi Azure'i portaali.
-2. Valige oma VM.
-3. Klõpsake "Stop" nuppu, et peatada VM (see hoiab kokku kulusid).
-   - **NB!** Ärge kustutage VM-i, kui plaanite seda hiljem veel kasutada.
+### 7.3 Nõuanded ekraanipiltide tegemiseks
+1. **VM ühenduse pilt**
+   - Näita tervet RDP või Bastioni akent
+   - Veendu, et ühendus on aktiivne
 
-### 9. Ekraanipiltide tegemine ja esitamine
+2. **Veebilehe pilt**
+   - Näita kogu brauseri akent (peab olema sinu nimi nähtav)
+   - IP-aadress peaks olema nähtav aadressiribal
 
-Enne labori lõpetamist tehke kaks ekraanipilti:
+3. **Azure seadete pilt**
+   - Näita võrguseadeid, kus port 80 on avatud
+   - VM peaks olema "Running" olekus
 
-1. Teie kohandatud veebilehest brauseris.
-2. Azure'i portaalist, mis näitab teie VM-i ülevaadet.
+## 8. Lisa materjalid
 
-Esitage need kaks ekraanipilti submission vormis, et tõendada labori edukat läbimist.
+- [HTML kiirjuhend (W3Schools)](https://www.w3schools.com/html/)
+- [Apache dokumentatsioon](https://httpd.apache.org/docs/)
+- [Azure õpikeskus](https://docs.microsoft.com/learn/)
