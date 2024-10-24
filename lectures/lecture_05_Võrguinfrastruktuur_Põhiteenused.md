@@ -1,13 +1,17 @@
-# 🌐 Võrguinfrastruktuur, DHCP ja DNS
+# Võrguinfrastruktuur, DHCP ja DNS
+## Study.book - Lab 4
 
-## 📚 Sissejuhatus
-Võrgud on tänapäeva digitaalse maailma selgroog. Kujutage ette, et kogu internet on nagu suur linn, kus:
-- Võrgud on tänavad ja teed
-- IP-aadressid on majade aadressid
-- DHCP on nagu linnaplaneerimisametnik, kes määrab aadresse
-- DNS on nagu digitaalne telefoniraamat
+## 1. Õppematerjali eesmärgid 🎯
 
-## 🏙️ Võrgutüübid: Detailne Ülevaade
+Pärast selle materjali läbitöötamist:
+- Mõistate erinevaid võrgutüüpe ja nende kasutuskohti
+- Saate aru DHCP tööpõhimõtetest ja konfigureerimisest
+- Oskate seadistada ja hallata DNS serverit
+- Suudate tuvastada ja lahendada tavalisi võrguprobleeme
+
+## 2. Võrgutüübid ja Infrastruktuur 🌐
+
+### 2.1 Võrgutüüpide ülevaade
 
 ```mermaid
 graph TB
@@ -52,43 +56,71 @@ graph TB
     class WAN wanStyle
 ```
 
-### 1. LAN (Local Area Network)
-- **Mis see on?** Piiratud ala võrk, näiteks:
-  - Kontorihoone võrk
-  - Kooli arvutiklass
-  - Kodu võrk
-- **Praktilised näited:**
-  - Ethernet-kaabliga ühendatud arvutid kontoris
-  - Wi-Fi võrk kodus
-  - Printeriühendused kontoris
+### 2.2 Võrgutüüpide detailne kirjeldus
 
-### 2. WAN (Wide Area Network)
-- **Mis see on?** Laiaulatuslik võrk, mis ühendab kaugemaid punkte
-- **Praktiline näide:**
-  - Pank ühendab oma kontorid üle Eesti
-  - Rahvusvaheline ettevõte ühendab kontorid eri riikides
-- **Tehnoloogiad:**
-  - MPLS: Kiire ja turvaline andmeedastus
-  - SD-WAN: Tarkvarapõhine WAN-võrk
+#### 2.2.1 LAN (Local Area Network)
+- **Definitsioon**: Piiratud geograafilise ala võrk
+- **Omadused**:
+  - Kiirus: 10 Mbps kuni 10 Gbps
+  - Madal latentsus: < 1ms
+  - Kõrge turvalisus: füüsiliselt piiratud
+- **Kasutuskohad**:
+  - Kontorivõrgud
+  - Koolivõrgud
+  - Koduvõrgud
+- **Eelised**:
+  - Kiire andmeedastus
+  - Lihtne hallata
+  - Madal kulu
 
-### 3. VLAN (Virtual LAN)
-- **Mis see on?** Virtuaalne võrk füüsilise võrgu sees
-- **Praktiline näide:**
-  - Koolis on eraldi VLAN-id:
-    * VLAN 10: Õpetajate võrk
-    * VLAN 20: Õpilaste võrk
-    * VLAN 30: Administraatorite võrk
+#### 2.2.2 WAN (Wide Area Network)
+- **Definitsioon**: Geograafiliselt hajutatud võrkude ühendus
+- **Tehnoloogiad**:
+  - MPLS (Multiprotocol Label Switching)
+  - SD-WAN (Software-Defined WAN)
+  - VPN (Virtual Private Network)
+- **Kasutuskohad**:
+  - Rahvusvahelised ettevõtted
+  - Pankade võrgud
+  - Riigiasutuste võrgud
+- **Väljakutsed**:
+  - Kõrgem latentsus
+  - Keerulisem haldamine
+  - Suuremad kulud
 
-### 4. WLAN (Wireless LAN)
-- **Mis see on?** Traadita kohtvõrk
-- **Igapäevased näited:**
-  - Kodu Wi-Fi
-  - Kohviku tasuta internet
-  - Kontori traadita võrk
+#### 2.2.3 VLAN (Virtual LAN)
+- **Definitsioon**: Loogiline võrgu segmenteerimine
+- **Omadused**:
+  - IEEE 802.1Q standard
+  - VLAN ID: 1-4094
+  - Paindlik konfiguratsioon
+- **Kasutamise põhjused**:
+  - Turvalisuse tõstmine
+  - Liikluse eraldamine
+  - Ressursside optimeerimine
+- **Näited**:
+  ```
+  VLAN 10: Administratsioon (kõrge turvalisus)
+  VLAN 20: Töötajad (tavaline turvalisus)
+  VLAN 30: Külalised (piiratud ligipääs)
+  ```
 
-## 🎟️ DHCP: Detailne Selgitus
+#### 2.2.4 WLAN (Wireless LAN)
+- **Definitsioon**: Traadita kohtvõrk
+- **Standardid**:
+  - IEEE 802.11a/b/g/n/ac/ax
+- **Turvameetmed**:
+  - WPA3 krüpteering
+  - MAC filtreerimine
+  - 802.1X autentimine
+- **Planeerimise aspektid**:
+  - Leviala
+  - Interferents
+  - Kasutajate arv
 
-### DHCP protsessi skeem:
+## 3. DHCP (Dynamic Host Configuration Protocol) 🎟️
+
+### 3.1 DHCP protsessi skeem
 
 ```mermaid
 sequenceDiagram
@@ -98,79 +130,128 @@ sequenceDiagram
     note over K,D: Lab 4: DHCP Protsess
     
     K->>D: 1. DISCOVER
-    Note right of K: UDP BroadcastPort 67
+    Note right of K: UDP Broadcast<br/>Port 67
     
     D->>K: 2. OFFER
-    Note left of D: IP: 192.168.1.100Mask: 255.255.255.0Gateway: 192.168.1.1
+    Note left of D: IP: 192.168.1.100<br/>Mask: 255.255.255.0<br/>Gateway: 192.168.1.1
     
     K->>D: 3. REQUEST
     Note right of K: "Tahan seda IP-d!"
     
     D->>K: 4. ACK
-    Note left of D: Liisingu kestvus+ võrguseaded
+    Note left of D: Liisingu kestvus<br/>+ võrguseaded
 ```
 
+### 3.2 DHCP komponendid ja funktsioonid
 
-### Kuidas DHCP töötab? 
-Kujutage ette restorani:
-1. **DHCP Discover** = Klient siseneb restorani ja hüüab "Kas siin on vabu kohti?"
-2. **DHCP Offer** = Kelner vastab "Jah, laud number 5 on vaba!"
-3. **DHCP Request** = Klient ütleb "Jah, ma võtan laua number 5!"
-4. **DHCP Acknowledge** = Kelner kinnitab "Laud 5 on teie oma järgmiseks 2 tunniks"
+#### 3.2.1 DHCP Server
+- **Põhifunktsioonid**:
+  - IP-aadresside haldamine
+  - Võrguseadete jagamine
+  - Liisingu haldamine
+- **Konfigureeritavad parameetrid**:
+  ```
+  Scope: 192.168.1.0/24
+  Range: 192.168.1.100 - 192.168.1.200
+  Lease Time: 24h
+  Exclusions: 192.168.1.1-192.168.1.10
+  ```
 
-### DHCP jagab:
-- IP-aadress (näiteks 192.168.1.100)
-- Võrgumask (näiteks 255.255.255.0)
-- Vaikelüüs (näiteks 192.168.1.1)
-- DNS-serverid (näiteks 8.8.8.8)
+#### 3.2.2 DHCP Klient
+- **Põhifunktsioonid**:
+  - DHCP avastamine
+  - IP-aadressi taotlemine
+  - Liisingu uuendamine
+- **Olulised käsud**:
+  ```
+  ipconfig /release    # Vabasta IP
+  ipconfig /renew      # Uuenda IP
+  ipconfig /all        # Vaata seadeid
+  ```
 
-## 🗺️ DNS: Praktiline Selgitus
+## 4. DNS (Domain Name System) 🗺️
 
-### Kuidas DNS töötab?
-Kujutage ette raamatukogu:
-1. Külaline küsib "Kus asub raamat pealkirjaga www.google.com?"
-2. Raamatukoguhoidja (DNS-server) otsib kataloogi:
-   - Algab juurkataloogist (.)
-   - Liigub com-kataloogi
-   - Leiab google alamkataloogi
-   - Tagastab täpse asukoha (IP-aadressi)
+### 4.1 DNS päringu protsess
 
-### DNS-i kirjed selgitustega:
+```mermaid
+sequenceDiagram
+    participant K as Klient
+    participant L as Lokaalne DNS
+    participant A as Autoritatiivne DNS
+    
+    note over K,A: Lab 4: DNS Päringud
+    
+    K->>L: 1. Päring: www.example.com
+    
+    L->>A: 2. Rekursiivne päring
+    A->>L: 3. Vastus: IP 93.184.216.34
+    
+    L->>K: 4. IP tagastamine
+    Note right of K: Cache salvestamine
+    
+    note over K,A: Olulised DNS kirjed:
+    note over K,A: A - IPv4 (nt: example.com = 192.168.1.10)
+    note over K,A: CNAME - Alias (nt: www = example.com)
+    note over K,A: MX - Meiliserver
 ```
-A-kirje:      website.ee = 192.168.1.1
-              (Nagu maja täpne aadress)
 
-MX-kirje:     mail.website.ee = 10 mailserver.website.ee
-              (Nagu postkasti asukoht)
+### 4.2 DNS kirjete tüübid
 
-CNAME-kirje:  www.website.ee = website.ee
-              (Nagu maja teine sissepääs)
-```
+| Kirje tüüp | Kasutus | Näide |
+|------------|---------|--------|
+| A | IPv4 aadress | example.com = 192.168.1.10 |
+| AAAA | IPv6 aadress | example.com = 2001:db8::1 |
+| CNAME | Alias | www = example.com |
+| MX | Meiliserver | mail.example.com |
+| TXT | Tekst | SPF, DKIM info |
+| PTR | Reverse lookup | 192.168.1.10 = example.com |
 
-## 🔧 Praktiline Näide
+### 4.3 DNS server tüübid
+1. **Rekursiivne server**
+   - Teeb päringuid teistele serveritele
+   - Salvestab vastused vahemällu
+   - Näide: ISP DNS server
 
-Kui avate brauseri ja trükite www.example.com:
+2. **Autoritatiivne server**
+   - Hoiab originaal DNS kirjeid
+   - Vastab ainult oma tsooni päringutele
+   - Näide: example.com nimeserver
 
-1. Teie arvuti küsib DHCP-serverilt IP-aadressi
-2. DHCP annab teile IP konfiguratsiooni
-3. Teie arvuti küsib DNS-serverilt "Mis on www.example.com IP?"
-4. DNS vastab IP-aadressiga
-5. Teie arvuti ühendub selle IP-ga
+## 5. Laborid ja Praktika 🔬
 
+### 5.1 Lab 4: DHCP & DNS seadistamine
+- DHCP serveri installimine
+- IP-aadresside vahemiku määramine
+- DNS kirjete loomine
+- Testimine ja tõrkeotsing
 
-## 🔬 Laboratoorne töö (Lab 4)
+### 5.2 Tavalised probleemid ja lahendused
 
-Selles laboris õpime praktiliselt tundma DHCP ja DNS seadistamist:
-- DHCP serveri paigaldamine ja konfigureerimine
-- DNS serveri seadistamine ja haldamine
-- Võrguteenuste testimine ja tõrkeotsing
+#### 5.2.1 DHCP probleemid
+- **Sümptom**: "Ei saa IP-aadressi"
+  ```
+  Kontroll: ipconfig /all
+  Lahendus: ipconfig /release && ipconfig /renew
+  ```
 
-## ⚠️ Tavalised Probleemid ja Lahendused
+#### 5.2.2 DNS probleemid
+- **Sümptom**: "Ei lahenda domeeninimesid"
+  ```
+  Kontroll: nslookup example.com
+  Lahendus: ipconfig /flushdns
+  ```
 
-1. **"Ei saa internetiühendust"**
-   - Kontrollige DHCP-liisingut: `ipconfig /all`
-   - Uuendage DHCP-liisingut: `ipconfig /renew`
+## 6. Kokkuvõte 📝
 
-2. **"Veebileht ei avane"**
-   - Kontrollige DNS-servereid: `nslookup website.com`
-   - Puhastage DNS-vahemälu: `ipconfig /flushdns`
+Selles peatükis õppisime:
+1. Erinevaid võrgutüüpe ja nende kasutamist
+2. DHCP tööpõhimõtteid ja seadistamist
+3. DNS süsteemi struktuuri ja haldamist
+4. Praktilisi oskusi läbi laboritöö
+
+## 7. Lisamaterjalid 📚
+
+- RFC 2131 (DHCP)
+- RFC 1034, 1035 (DNS)
+- Cisco CCNA materjalid
+- Microsoft TechNet artiklid
