@@ -1,82 +1,133 @@
 # 🌐 Võrguinfrastruktuur, DHCP ja DNS
 
-Tere tulemast meie tehnilisele teekonnale läbi võrgumaailma! Täna sukeldume **DHCP** ja **DNS** protokollidesse, aga enne seda teeme ülevaate võrgutüüpidest.
+## 📚 Sissejuhatus
+Võrgud on tänapäeva digitaalse maailma selgroog. Kujutage ette, et kogu internet on nagu suur linn, kus:
+- Võrgud on tänavad ja teed
+- IP-aadressid on majade aadressid
+- DHCP on nagu linnaplaneerimisametnik, kes määrab aadresse
+- DNS on nagu digitaalne telefoniraamat
 
-## 🏙️ Võrgutüübid: Digitaalse Infrastruktuuri Alused
+## 🏙️ Võrgutüübid: Detailne Ülevaade
 
-Kujutage ette, et võrgud on nagu erinevad linnaosad ja teed meie digitaalses maailmas:
+### 1. LAN (Local Area Network)
+- **Mis see on?** Piiratud ala võrk, näiteks:
+  - Kontorihoone võrk
+  - Kooli arvutiklass
+  - Kodu võrk
+- **Praktilised näited:**
+  - Ethernet-kaabliga ühendatud arvutid kontoris
+  - Wi-Fi võrk kodus
+  - Printeriühendused kontoris
 
-- **LAN** (Local Area Network) on nagu <span style="color: #4CAF50;">**piiratud geograafiline ala**</span>, tavaliselt ühe organisatsiooni piires.
-  - Kiirus: 10 Mbps kuni 10 Gbps
-  - Protokollid: Ethernet (IEEE 802.3), Wi-Fi (IEEE 802.11)
+### 2. WAN (Wide Area Network)
+- **Mis see on?** Laiaulatuslik võrk, mis ühendab kaugemaid punkte
+- **Praktiline näide:**
+  - Pank ühendab oma kontorid üle Eesti
+  - Rahvusvaheline ettevõte ühendab kontorid eri riikides
+- **Tehnoloogiad:**
+  - MPLS: Kiire ja turvaline andmeedastus
+  - SD-WAN: Tarkvarapõhine WAN-võrk
 
-- **WAN** (Wide Area Network) on kui <span style="color: #2196F3;">**geograafiliselt hajutatud võrkude ühendus**</span>.
-  - Tehnoloogiad: MPLS, SD-WAN
-  - Rakendused: Ettevõtete harukontorite ühendamine üle suurte vahemaade
+### 3. VLAN (Virtual LAN)
+- **Mis see on?** Virtuaalne võrk füüsilise võrgu sees
+- **Praktiline näide:**
+  - Koolis on eraldi VLAN-id:
+    * VLAN 10: Õpetajate võrk
+    * VLAN 20: Õpilaste võrk
+    * VLAN 30: Administraatorite võrk
 
-- **VLAN** (Virtual LAN) on justkui <span style="color: #9C27B0;">**loogiline võrgu segmenteerimine**</span> füüsilise infrastruktuuri piires.
-  - Standard: IEEE 802.1Q
-  - Eelised: Parem turvalisus, liikluse optimeerimine, paindlik haldamine
+### 4. WLAN (Wireless LAN)
+- **Mis see on?** Traadita kohtvõrk
+- **Igapäevased näited:**
+  - Kodu Wi-Fi
+  - Kohviku tasuta internet
+  - Kontori traadita võrk
 
-- **WLAN** (Wireless LAN) on nagu <span style="color: #FF9800;">**traadita kohtvõrk**</span>, tavaliselt Wi-Fi põhine.
-  - Standardid: IEEE 802.11 (a/b/g/n/ac/ax)
-  - Turvalisus: WPA3, 802.1X autentimine
+## 🎟️ DHCP: Detailne Selgitus
 
-## 🎟️ DHCP: Võrgu Automaatne Konfiguraator
+### DHCP protsessi skeem:
 
-DHCP (Dynamic Host Configuration Protocol) on nagu <span style="color: #E91E63;">**automaatne süsteem, mis jagab seadmetele võrgukonfiguratsiooni**</span>.
+```mermaid
+sequenceDiagram
+    participant K as Klient
+    participant D as DHCP Server
+    
+    note over K,D: Lab 4: DHCP Protsess
+    
+    K->>D: 1. DISCOVER
+    Note right of K: UDP BroadcastPort 67
+    
+    D->>K: 2. OFFER
+    Note left of D: IP: 192.168.1.100Mask: 255.255.255.0Gateway: 192.168.1.1
+    
+    K->>D: 3. REQUEST
+    Note right of K: "Tahan seda IP-d!"
+    
+    D->>K: 4. ACK
+    Note left of D: Liisingu kestvus+ võrguseaded
+```
 
-### DHCP tööprotsess:
 
-1. 🗣️ **DHCP Discover**: Klient saadab võrku laialipakettsõnumi (broadcast) UDP pordil 67.
-2. 👋 **DHCP Offer**: Server vastab unicast-sõnumiga UDP pordil 68, pakkudes IP-aadressi ja konfiguratsiooni.
-3. 🙏 **DHCP Request**: Klient kinnitab soovi pakutud konfiguratsiooni kasutada.
-4. 🎉 **DHCP Acknowledge**: Server kinnitab konfiguratsiooni ja määrab liisinguperioodi.
+### Kuidas DHCP töötab? 
+Kujutage ette restorani:
+1. **DHCP Discover** = Klient siseneb restorani ja hüüab "Kas siin on vabu kohti?"
+2. **DHCP Offer** = Kelner vastab "Jah, laud number 5 on vaba!"
+3. **DHCP Request** = Klient ütleb "Jah, ma võtan laua number 5!"
+4. **DHCP Acknowledge** = Kelner kinnitab "Laud 5 on teie oma järgmiseks 2 tunniks"
 
-**Miks see on oluline?** <span style="color: #4CAF50;">**DHCP automatiseerib võrgukonfiguratsiooni, vähendades käsitsi seadistamise vajadust ja vigu.**</span>
+### DHCP jagab:
+- IP-aadress (näiteks 192.168.1.100)
+- Võrgumask (näiteks 255.255.255.0)
+- Vaikelüüs (näiteks 192.168.1.1)
+- DNS-serverid (näiteks 8.8.8.8)
 
-### DHCP olulised komponendid:
+## 🗺️ DNS: Praktiline Selgitus
 
-- 🕒 **Liisingute süsteem**: IP-aadresside ajutine määramine, tüüpiliselt 24 tundi kuni 7 päeva.
-- 🌉 **DHCP relay**: Võimaldab DHCP-päringute edastamist eri võrgusegmentide vahel.
-- 🛡️ **Turvalisus**: 
-  - DHCP snooping: Kaitseb võlts-DHCP serverite vastu.
-  - IP Source Guard: Takistab IP-aadresside võltsimist.
+### Kuidas DNS töötab?
+Kujutage ette raamatukogu:
+1. Külaline küsib "Kus asub raamat pealkirjaga www.google.com?"
+2. Raamatukoguhoidja (DNS-server) otsib kataloogi:
+   - Algab juurkataloogist (.)
+   - Liigub com-kataloogi
+   - Leiab google alamkataloogi
+   - Tagastab täpse asukoha (IP-aadressi)
 
-## 🗺️ DNS: Domeeninimede Süsteem
+### DNS-i kirjed selgitustega:
+```
+A-kirje:      website.ee = 192.168.1.1
+              (Nagu maja täpne aadress)
 
-DNS (Domain Name System) on <span style="color: #FFC107;">**hajutatud hierarhiline süsteem domeeninimede ja IP-aadresside vastendamiseks**</span>.
+MX-kirje:     mail.website.ee = 10 mailserver.website.ee
+              (Nagu postkasti asukoht)
 
-### DNS tööpõhimõte:
+CNAME-kirje:  www.website.ee = website.ee
+              (Nagu maja teine sissepääs)
+```
 
-1. 🕵️ Rekursiivne päring kliendilt kohalikule DNS-serverile.
-2. 🗃️ Iteratiivne päring juurserveritele, TLD-serveritele ja autoritatiivsetele nimeserveritele.
-3. 🔍 Vastuse tagastamine kliendile ja vahemällu salvestamine.
-4. 🎯 Klient saab teada täpse IP-aadressi domeeninime jaoks.
+## 🔧 Praktiline Näide
 
-### DNS-i olulised komponendid:
+Kui avate brauseri ja trükite www.example.com:
 
-- 📚 **Kirjetüübid**:
-  - **A**: IPv4 aadress
-  - **AAAA**: IPv6 aadress
-  - **CNAME**: Kanoonilise nime kirje (alias)
-  - **MX**: Meiliserverite kirjed
-  - **TXT**: Tekstikirjed (kasutatakse SPF, DKIM jaoks)
+1. Teie arvuti küsib DHCP-serverilt IP-aadressi
+2. DHCP annab teile IP konfiguratsiooni
+3. Teie arvuti küsib DNS-serverilt "Mis on www.example.com IP?"
+4. DNS vastab IP-aadressiga
+5. Teie arvuti ühendub selle IP-ga
 
-- 🔄 **Tsoonid**: 
-  - Päringute tsoon: Domeeninimedest IP-aadressideks
-  - Vastupäringute tsoon: IP-aadressidest domeeninimedeks
 
-- 🔒 **Turvalisus**:
-  - **DNSSEC**: Digitaalselt allkirjastatud DNS-kirjed turvalisuse tagamiseks.
-  - **DoH (DNS üle HTTPS)**: Krüpteeritud DNS-päringud privaatsuse suurendamiseks.
+## 🔬 Laboratoorne töö (Lab 4)
 
-## 🤝 DHCP ja DNS: Võrgu Dünaamiline Duo
+Selles laboris õpime praktiliselt tundma DHCP ja DNS seadistamist:
+- DHCP serveri paigaldamine ja konfigureerimine
+- DNS serveri seadistamine ja haldamine
+- Võrguteenuste testimine ja tõrkeotsing
 
-DHCP ja DNS töötavad koos nagu <span style="color: #673AB7;">**sünkroniseeritud süsteem**</span>. DHCP annab seadmetele IP-aadressid ja DNS aitab neid aadresse domeeninimede kaudu tuvastada. See kombinatsioon tagab efektiivse ja kasutajasõbraliku võrgukogemuse.
+## ⚠️ Tavalised Probleemid ja Lahendused
 
-## 🎓 Kokkuvõte
+1. **"Ei saa internetiühendust"**
+   - Kontrollige DHCP-liisingut: `ipconfig /all`
+   - Uuendage DHCP-liisingut: `ipconfig /renew`
 
-DHCP ja DNS on <span style="color: #FF5722;">**kriitilised protokollid, mis muudavad keerulise võrguarhitektuuri lihtsalt hallatavaks ja kasutatavaks**</span>. Nende tõhus toimimine on aluseks paljudele tänapäevastele võrgupõhistele teenustele ja rakendustele.
-
-**Tehniline küsimus:** Kuidas mõjutaks DNSSEC rakendamine teie organisatsiooni DNS-infrastruktuuri ja millised oleksid peamised väljakutsed selle juurutamisel?
+2. **"Veebileht ei avane"**
+   - Kontrollige DNS-servereid: `nslookup website.com`
+   - Puhastage DNS-vahemälu: `ipconfig /flushdns`
