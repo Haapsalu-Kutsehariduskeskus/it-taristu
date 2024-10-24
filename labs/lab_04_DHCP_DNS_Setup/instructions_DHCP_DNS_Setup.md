@@ -201,7 +201,7 @@ VM4:
 
 ### 3.5 Testimine
 
-*Vali ise millega sa masinatesse ühendas
+*Vali ise millega sa masinatesse ühendad
 kas RDP, Bastion, SSH Vscodes või Puttys.*
 
 #### A. Windows Masinas
