@@ -29,7 +29,7 @@ Logi sisse või loo Azure'i konto:
   -  Kui sul juba on Microsofti konto, logi sisse. Kui ei, siis loo uus konto.
   -  Pärast sisselogimist viiakse sind Azure for Students lehele, kus saad aktiveerida oma $100 tasuta krediidi, ilma et oleks vaja krediitkaarti.
 Aktiveeri oma tellimus:
-   - Järgi juhiseid, et tõendada oma õpilasstaatust. See võib hõlmata ülikooli e-posti aadressi.
+   - Järgi juhiseid, et tõendada oma õpilasstaatust. See võib hõlmata kooli e-posti aadressi.
    - Pärast edukat kontrollimist aktiveeritakse sinu tasuta Azure'i tellimus koos $100 krediidiga, mis kehtib 12 kuud, ja saad ligipääsu enam kui 25 tasuta teenusele.
 3. Klõpsa "Create a resource" nupul.
 4. Vali "Compute" kategooria alt "Virtual Machine".
