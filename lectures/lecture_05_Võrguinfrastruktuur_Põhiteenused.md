@@ -367,6 +367,60 @@ www.example.com päring →
 3. example.com autoritatiivne server
 4. Vastus: www.example.com IP
 ```
+graph TD
+    subgraph DNS["DNS Hierarhia"]
+        R[". (Root)"] --> COM[".com"]
+        R --> ORG[".org"]
+        R --> EE[".ee"]
+        R --> EDU[".edu"]
+        
+        COM --> GOOGLE["google.com"]
+        COM --> EXAMPLE["example.com"]
+        COM --> MICROSOFT["microsoft.com"]
+        
+        EE --> TTU["taltech.ee"]
+        EE --> RIIK["riik.ee"]
+        
+        EXAMPLE --> MAIL["mail.example.com"]
+        EXAMPLE --> WWW["www.example.com"]
+        EXAMPLE --> BLOG["blog.example.com"]
+        
+        style R fill:#ff9999,stroke:#ff0000,stroke-width:2px
+        style COM fill:#99ff99,stroke:#009900,stroke-width:2px
+        style ORG fill:#99ff99,stroke:#009900,stroke-width:2px
+        style EE fill:#99ff99,stroke:#009900,stroke-width:2px
+        style EDU fill:#99ff99,stroke:#009900,stroke-width:2px
+        style GOOGLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style EXAMPLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style MICROSOFT fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style TTU fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style RIIK fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style MAIL fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
+        style WWW fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
+        style BLOG fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
+    end
+
+    subgraph Selgitus["Tasemete selgitus"]
+        L1[/"Root DNS Servers"/]
+        L2[/"Top Level Domains (TLD)"/]
+        L3[/"Second Level Domains"/]
+        L4[/"Subdomains"/]
+        
+        style L1 fill:#ff9999,stroke:#ff0000
+        style L2 fill:#99ff99,stroke:#009900
+        style L3 fill:#9999ff,stroke:#0000ff
+        style L4 fill:#ff99ff,stroke:#ff00ff
+    end
+
+    subgraph Päring["Päringu näide: www.example.com"]
+        direction LR
+        C((Klient)) --> |1. Päring|RL[Rekursiivne DNS]
+        RL --> |2. Küsi juurt|Root{Root Server}
+        Root --> |3. Küsi .com|TLD{.com Server}
+        TLD --> |4. Küsi example.com|AUTH{example.com Server}
+        AUTH --> |5. Vastus IP|RL
+        RL --> |6. IP aadress|C
+    end
 
 #### 4.2.3 DNS serverite tüübid
 
@@ -468,24 +522,9 @@ mail.example.com. IN A    192.168.1.20
 example.com.     IN MX   10 mail.example.com.
 ```
 
-### 4.3 DNS server tüübid
-1. **Rekursiivne server**
-   - Teeb päringuid teistele serveritele
-   - Salvestab vastused vahemällu
-   - Näide: ISP DNS server
+## 5. Laborid 🔬
 
-2. **Autoritatiivne server**
-   - Hoiab originaal DNS kirjeid
-   - Vastab ainult oma tsooni päringutele
-   - Näide: example.com nimeserver
-
-## 5. Laborid ja Praktika 🔬
-
-### 5.1 Lab 4: DHCP & DNS seadistamine
-- DHCP serveri installimine
-- IP-aadresside vahemiku määramine
-- DNS kirjete loomine
-- Testimine ja tõrkeotsing
+###  Lab 4: DHCP & DNS seadistamine
 
 ### 5.2 Tavalised probleemid ja lahendused
 
@@ -503,15 +542,7 @@ example.com.     IN MX   10 mail.example.com.
   Lahendus: ipconfig /flushdns
   ```
 
-## 6. Kokkuvõte 📝
-
-Selles peatükis õppisime:
-1. Erinevaid võrgutüüpe ja nende kasutamist
-2. DHCP tööpõhimõtteid ja seadistamist
-3. DNS süsteemi struktuuri ja haldamist
-4. Praktilisi oskusi läbi laboritöö
-
-## 7. Lisamaterjalid 📚
+## 6. Lisamaterjalid 📚
 
 - RFC 2131 (DHCP)
 - RFC 1034, 1035 (DNS)
