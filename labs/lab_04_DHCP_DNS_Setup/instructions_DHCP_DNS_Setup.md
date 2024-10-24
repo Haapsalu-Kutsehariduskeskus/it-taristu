@@ -201,6 +201,9 @@ VM4:
 
 ### 3.5 Testimine
 
+*Vali ise millega sa masinatesse ühendas
+kas RDP, Bastion, SSH Vscodes või Puttys.*
+
 #### A. Windows Masinas
 1. Ühendu VM2 külge (vajuta "Connect" > "Bastion")
 2. Ava PowerShell
