@@ -12,55 +12,6 @@ Pärast selle materjali läbitöötamist:
 
 ### 2.1 Võrgutüüpide ülevaade
 
-# DNS Hierarhia
-
-```
-                                    . (Root DNS)
-                                         |
-                    +--------------------+-------------------+
-                    |                    |                  |
-                  .com                 .org                .ee
-                    |                    |                  |
-        +-----------+----------+         |          +-------+-------+
-        |           |          |     debian.org     |             |
-    google.com  example.com  microsoft.com       riik.ee     taltech.ee
-                    |
-            +-------+-------+
-            |       |       |
-           www    mail    blog
-```
-
-## DNS päringu protsess: www.example.com
-
-```
-1. Klient → Rekursiivne DNS Server: "Kus on www.example.com?"
-   |
-2. Rekursiivne Server → Root DNS: "Kus on .com?"
-   |
-3. Root DNS → Rekursiivne: ".com serverite aadressid"
-   |
-4. Rekursiivne → .com DNS: "Kus on example.com?"
-   |
-5. .com DNS → Rekursiivne: "example.com serverite aadressid"
-   |
-6. Rekursiivne → example.com DNS: "Kus on www.example.com?"
-   |
-7. example.com DNS → Rekursiivne: "www.example.com = 192.168.1.10"
-   |
-8. Rekursiivne → Klient: "www.example.com = 192.168.1.10"
-```
-
-## DNS hierarhia tasemed
-
-```
-Tase 1: Root (.)
-        ↓
-Tase 2: Top Level Domain (.com, .org, .ee)
-        ↓
-Tase 3: Second Level Domain (example.com)
-        ↓
-Tase 4: Subdomain (www.example.com)
-```
 ### 2.2 Võrgutüüpide detailne kirjeldus
 
 #### 2.2.1 LAN (Local Area Network)
@@ -373,61 +324,56 @@ www.example.com päring →
 3. example.com autoritatiivne server
 4. Vastus: www.example.com IP
 ```
-graph TD
-    subgraph DNS["DNS Hierarhia"]
-        R[". (Root)"] --> COM[".com"]
-        R --> ORG[".org"]
-        R --> EE[".ee"]
-        R --> EDU[".edu"]
-        
-        COM --> GOOGLE["google.com"]
-        COM --> EXAMPLE["example.com"]
-        COM --> MICROSOFT["microsoft.com"]
-        
-        EE --> TTU["taltech.ee"]
-        EE --> RIIK["riik.ee"]
-        
-        EXAMPLE --> MAIL["mail.example.com"]
-        EXAMPLE --> WWW["www.example.com"]
-        EXAMPLE --> BLOG["blog.example.com"]
-        
-        style R fill:#ff9999,stroke:#ff0000,stroke-width:2px
-        style COM fill:#99ff99,stroke:#009900,stroke-width:2px
-        style ORG fill:#99ff99,stroke:#009900,stroke-width:2px
-        style EE fill:#99ff99,stroke:#009900,stroke-width:2px
-        style EDU fill:#99ff99,stroke:#009900,stroke-width:2px
-        style GOOGLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
-        style EXAMPLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
-        style MICROSOFT fill:#9999ff,stroke:#0000ff,stroke-width:2px
-        style TTU fill:#9999ff,stroke:#0000ff,stroke-width:2px
-        style RIIK fill:#9999ff,stroke:#0000ff,stroke-width:2px
-        style MAIL fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
-        style WWW fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
-        style BLOG fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
-    end
 
-    subgraph Selgitus["Tasemete selgitus"]
-        L1[/"Root DNS Servers"/]
-        L2[/"Top Level Domains (TLD)"/]
-        L3[/"Second Level Domains"/]
-        L4[/"Subdomains"/]
-        
-        style L1 fill:#ff9999,stroke:#ff0000
-        style L2 fill:#99ff99,stroke:#009900
-        style L3 fill:#9999ff,stroke:#0000ff
-        style L4 fill:#ff99ff,stroke:#ff00ff
-    end
+# DNS Hierarhia
 
-    subgraph Päring["Päringu näide: www.example.com"]
-        direction LR
-        C((Klient)) --> |1. Päring|RL[Rekursiivne DNS]
-        RL --> |2. Küsi juurt|Root{Root Server}
-        Root --> |3. Küsi .com|TLD{.com Server}
-        TLD --> |4. Küsi example.com|AUTH{example.com Server}
-        AUTH --> |5. Vastus IP|RL
-        RL --> |6. IP aadress|C
-    end
+```
+                                    . (Root DNS)
+                                         |
+                    +--------------------+-------------------+
+                    |                    |                  |
+                  .com                 .org                .ee
+                    |                    |                  |
+        +-----------+----------+         |          +-------+-------+
+        |           |          |     debian.org     |             |
+    google.com  example.com  microsoft.com       riik.ee     taltech.ee
+                    |
+            +-------+-------+
+            |       |       |
+           www    mail    blog
+```
 
+## DNS päringu protsess: www.example.com
+
+```
+1. Klient → Rekursiivne DNS Server: "Kus on www.example.com?"
+   |
+2. Rekursiivne Server → Root DNS: "Kus on .com?"
+   |
+3. Root DNS → Rekursiivne: ".com serverite aadressid"
+   |
+4. Rekursiivne → .com DNS: "Kus on example.com?"
+   |
+5. .com DNS → Rekursiivne: "example.com serverite aadressid"
+   |
+6. Rekursiivne → example.com DNS: "Kus on www.example.com?"
+   |
+7. example.com DNS → Rekursiivne: "www.example.com = 192.168.1.10"
+   |
+8. Rekursiivne → Klient: "www.example.com = 192.168.1.10"
+```
+
+## DNS hierarhia tasemed
+
+```
+Tase 1: Root (.)
+        ↓
+Tase 2: Top Level Domain (.com, .org, .ee)
+        ↓
+Tase 3: Second Level Domain (example.com)
+        ↓
+Tase 4: Subdomain (www.example.com)
+```
 #### 4.2.3 DNS serverite tüübid
 
 **1. Rekursiivne DNS server**
