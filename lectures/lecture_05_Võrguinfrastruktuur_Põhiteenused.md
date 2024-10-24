@@ -12,48 +12,60 @@ Pärast selle materjali läbitöötamist:
 
 ### 2.1 Võrgutüüpide ülevaade
 
-```mermaid
-graph TB
-    subgraph WAN[Wide Area Network]
-        direction TB
+graph TD
+    subgraph DNS["DNS Hierarhia"]
+        R[". (Root)"] --> COM[".com"]
+        R --> ORG[".org"]
+        R --> EE[".ee"]
+        R --> EDU[".edu"]
         
-        subgraph LK[" Kontor Londonis "]
-            direction LR
-            L_LAN[LAN]
-            L_WLAN[WLAN/WiFi]
-            subgraph L_VLAN[VLAN-id]
-                L_V1[VLAN 10<br>Admin]
-                L_V2[VLAN 20<br>Töötajad]
-                L_V3[VLAN 30<br>Külalised]
-            end
-        end
-
-        subgraph TK[" Kontor Tallinnas "]
-            direction LR
-            T_LAN[LAN]
-            T_WLAN[WLAN/WiFi]
-            subgraph T_VLAN[VLAN-id]
-                T_V1[VLAN 10<br>Admin]
-                T_V2[VLAN 20<br>Töötajad]
-                T_V3[VLAN 30<br>Külalised]
-            end
-        end
+        COM --> GOOGLE["google.com"]
+        COM --> EXAMPLE["example.com"]
+        COM --> MICROSOFT["microsoft.com"]
         
-        TK ---|Internet/VPN| LK
+        EE --> TTU["taltech.ee"]
+        EE --> RIIK["riik.ee"]
+        
+        EXAMPLE --> MAIL["mail.example.com"]
+        EXAMPLE --> WWW["www.example.com"]
+        EXAMPLE --> BLOG["blog.example.com"]
+        
+        style R fill:#ff9999,stroke:#ff0000,stroke-width:2px
+        style COM fill:#99ff99,stroke:#009900,stroke-width:2px
+        style ORG fill:#99ff99,stroke:#009900,stroke-width:2px
+        style EE fill:#99ff99,stroke:#009900,stroke-width:2px
+        style EDU fill:#99ff99,stroke:#009900,stroke-width:2px
+        style GOOGLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style EXAMPLE fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style MICROSOFT fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style TTU fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style RIIK fill:#9999ff,stroke:#0000ff,stroke-width:2px
+        style MAIL fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
+        style WWW fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
+        style BLOG fill:#ff99ff,stroke:#ff00ff,stroke-width:2px
     end
 
-    classDef lanStyle fill:#a8d5ff,stroke:#2196F3,stroke-width:2px
-    classDef wlanStyle fill:#ffcca8,stroke:#FF9800,stroke-width:2px
-    classDef vlanStyle fill:#d5a8ff,stroke:#9C27B0,stroke-width:2px
-    classDef officeStyle fill:#f5f5f5,stroke:#333,stroke-width:2px
-    classDef wanStyle fill:#f0f8ff,stroke:#2196F3,stroke-width:4px
-    
-    class L_LAN,T_LAN lanStyle
-    class L_WLAN,T_WLAN wlanStyle
-    class L_VLAN,T_VLAN,L_V1,L_V2,L_V3,T_V1,T_V2,T_V3 vlanStyle
-    class LK,TK officeStyle
-    class WAN wanStyle
-```
+    subgraph Selgitus["Tasemete selgitus"]
+        L1[/"Root DNS Servers"/]
+        L2[/"Top Level Domains (TLD)"/]
+        L3[/"Second Level Domains"/]
+        L4[/"Subdomains"/]
+        
+        style L1 fill:#ff9999,stroke:#ff0000
+        style L2 fill:#99ff99,stroke:#009900
+        style L3 fill:#9999ff,stroke:#0000ff
+        style L4 fill:#ff99ff,stroke:#ff00ff
+    end
+
+    subgraph Päring["Päringu näide: www.example.com"]
+        direction LR
+        C((Klient)) --> |1. Päring|RL[Rekursiivne DNS]
+        RL --> |2. Küsi juurt|Root{Root Server}
+        Root --> |3. Küsi .com|TLD{.com Server}
+        TLD --> |4. Küsi example.com|AUTH{example.com Server}
+        AUTH --> |5. Vastus IP|RL
+        RL --> |6. IP aadress|C
+    end
 
 ### 2.2 Võrgutüüpide detailne kirjeldus
 
