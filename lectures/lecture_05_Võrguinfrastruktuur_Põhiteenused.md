@@ -9,6 +9,53 @@ Võrgud on tänapäeva digitaalse maailma selgroog. Kujutage ette, et kogu inter
 
 ## 🏙️ Võrgutüübid: Detailne Ülevaade
 
+# 🌐 Võrguinfrastruktuur, DHCP ja DNS
+
+## 🏙️ Võrgutüübid: Digitaalse Infrastruktuuri Alused
+
+```mermaid
+graph TB
+    subgraph WAN[Wide Area Network]
+        direction TB
+        
+        subgraph LK[" Kontor Londonis "]
+            direction LR
+            L_LAN[LAN]
+            L_WLAN[WLAN/WiFi]
+            subgraph L_VLAN[VLAN-id]
+                L_V1[VLAN 10<br>Admin]
+                L_V2[VLAN 20<br>Töötajad]
+                L_V3[VLAN 30<br>Külalised]
+            end
+        end
+
+        subgraph TK[" Kontor Tallinnas "]
+            direction LR
+            T_LAN[LAN]
+            T_WLAN[WLAN/WiFi]
+            subgraph T_VLAN[VLAN-id]
+                T_V1[VLAN 10<br>Admin]
+                T_V2[VLAN 20<br>Töötajad]
+                T_V3[VLAN 30<br>Külalised]
+            end
+        end
+        
+        TK ---|Internet/VPN| LK
+    end
+
+    classDef lanStyle fill:#a8d5ff,stroke:#2196F3,stroke-width:2px
+    classDef wlanStyle fill:#ffcca8,stroke:#FF9800,stroke-width:2px
+    classDef vlanStyle fill:#d5a8ff,stroke:#9C27B0,stroke-width:2px
+    classDef officeStyle fill:#f5f5f5,stroke:#333,stroke-width:2px
+    classDef wanStyle fill:#f0f8ff,stroke:#2196F3,stroke-width:4px
+    
+    class L_LAN,T_LAN lanStyle
+    class L_WLAN,T_WLAN wlanStyle
+    class L_VLAN,T_VLAN,L_V1,L_V2,L_V3,T_V1,T_V2,T_V3 vlanStyle
+    class LK,TK officeStyle
+    class WAN wanStyle
+```
+
 ### 1. LAN (Local Area Network)
 - **Mis see on?** Piiratud ala võrk, näiteks:
   - Kontorihoone võrk
